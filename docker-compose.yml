@@ -1,0 +1,80 @@
+# ============================================
+# RunFree Docker Compose
+# Local development environment
+# ============================================
+
+services:
+  # ----------------------------------------
+  # Database Services
+  # ----------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: runfree-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: runfree_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: runfree-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------
+  # Application Services (optional - can run locally)
+  # ----------------------------------------
+  # Uncomment below to run apps in Docker
+
+  # api:
+  #   build:
+  #     context: ./apps/api
+  #     dockerfile: Dockerfile
+  #   container_name: runfree-api
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     DATABASE_URL: postgresql://postgres:postgres@postgres:5432/runfree_development
+  #     REDIS_URL: redis://redis:6379/0
+  #     RAILS_ENV: development
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./apps/api:/app
+  #     - api_bundle:/app/vendor/bundle
+
+  # ai-service:
+  #   build:
+  #     context: ./apps/ai-service
+  #     dockerfile: Dockerfile
+  #   container_name: runfree-ai-service
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+  #   volumes:
+  #     - ./apps/ai-service:/app
+
+volumes:
+  postgres_data:
+  redis_data:
+  # api_bundle:
