@@ -221,6 +221,54 @@ erDiagram
     }
 ```
 
+### API Flow
+
+```mermaid
+flowchart LR
+    subgraph Auth
+        A1[POST /auth/signup]
+        A2[POST /auth/login]
+        A3[DELETE /auth/logout]
+    end
+
+    subgraph Onboarding
+        O1[POST /profile]
+        O2[POST /goals]
+        O3[POST /availability]
+    end
+
+    subgraph Training
+        T1[POST /training_plans]
+        T2[GET /training_plans/:id]
+        T3[GET /workouts]
+        T4[PATCH /workouts/:id]
+        T5[POST /workouts/:id/complete]
+    end
+
+    subgraph AI
+        AI1[POST /ai/generate_plan]
+        AI2[POST /ai/adjust_plan]
+        AI3[POST /ai/chat]
+    end
+
+    subgraph Social
+        S1[GET /feed]
+        S2[POST /kudos]
+        S3[POST /comments]
+        S4[POST /follow]
+    end
+
+    A1 --> O1
+    O1 --> O2
+    O2 --> O3
+    O3 --> T1
+    T1 --> AI1
+    AI1 --> T2
+    T2 --> T3
+    T4 --> T5
+    T5 --> S1
+```
+
 ## Development
 
 ### Monorepo Structure
