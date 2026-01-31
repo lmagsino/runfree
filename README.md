@@ -81,7 +81,48 @@ make lint          # Lint all code
 
 ### System Architecture
 
-*Coming soon*
+```mermaid
+flowchart TB
+    subgraph Clients
+        WEB[React Web<br/>:5173]
+        MOBILE[React Native<br/>iOS/Android]
+    end
+
+    subgraph Backend
+        API[Rails API<br/>:3000]
+        AI[Python AI Service<br/>:8000]
+        RT[Node.js Realtime<br/>:3001]
+    end
+
+    subgraph Data
+        PG[(PostgreSQL<br/>+ PostGIS)]
+        REDIS[(Redis)]
+        S3[(S3 Storage)]
+    end
+
+    subgraph External
+        CLAUDE[Claude API]
+        GARMIN[Garmin Connect]
+        STRAVA[Strava API]
+    end
+
+    WEB --> API
+    MOBILE --> API
+    WEB <--> RT
+    MOBILE <--> RT
+
+    API --> PG
+    API --> REDIS
+    API --> S3
+    API --> AI
+
+    AI --> CLAUDE
+
+    RT --> REDIS
+
+    API --> GARMIN
+    API --> STRAVA
+```
 
 ### Data Flow
 
