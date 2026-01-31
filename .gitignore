@@ -1,0 +1,108 @@
+# ============================================
+# RunFree Monorepo .gitignore
+# ============================================
+
+# --------------------------------------------
+# Dependencies
+# --------------------------------------------
+node_modules/
+.pnpm-store/
+
+# --------------------------------------------
+# Build outputs
+# --------------------------------------------
+dist/
+build/
+.next/
+out/
+.turbo/
+
+# --------------------------------------------
+# Environment files
+# --------------------------------------------
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# --------------------------------------------
+# IDE / Editor
+# --------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# --------------------------------------------
+# Logs
+# --------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --------------------------------------------
+# Testing
+# --------------------------------------------
+coverage/
+.nyc_output/
+
+# --------------------------------------------
+# OS files
+# --------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --------------------------------------------
+# Rails (apps/api)
+# --------------------------------------------
+apps/api/log/*
+apps/api/tmp/*
+apps/api/storage/*
+apps/api/.bundle
+apps/api/vendor/bundle
+apps/api/public/assets
+apps/api/public/packs
+apps/api/node_modules
+apps/api/yarn-error.log
+apps/api/.byebug_history
+apps/api/config/master.key
+apps/api/config/credentials/*.key
+
+# --------------------------------------------
+# Python (apps/ai-service)
+# --------------------------------------------
+apps/ai-service/__pycache__/
+apps/ai-service/*.py[cod]
+apps/ai-service/*$py.class
+apps/ai-service/.Python
+apps/ai-service/venv/
+apps/ai-service/.venv/
+apps/ai-service/env/
+apps/ai-service/.env/
+apps/ai-service/*.egg-info/
+apps/ai-service/.pytest_cache/
+apps/ai-service/.mypy_cache/
+apps/ai-service/.ruff_cache/
+
+# --------------------------------------------
+# React Native (apps/mobile)
+# --------------------------------------------
+apps/mobile/.expo/
+apps/mobile/ios/Pods/
+apps/mobile/ios/build/
+apps/mobile/android/.gradle/
+apps/mobile/android/app/build/
+apps/mobile/android/build/
+*.jks
+*.keystore
+
+# --------------------------------------------
+# Misc
+# --------------------------------------------
+*.local
+.cache/
