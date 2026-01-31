@@ -269,6 +269,31 @@ flowchart LR
     T5 --> S1
 ```
 
+### User Journey
+
+```mermaid
+journey
+    title User Journey - First Week
+    section Onboarding
+      Sign up: 5: User
+      Complete profile: 4: User
+      Set running goal: 5: User
+      Set availability: 4: User
+    section Plan Generation
+      AI generates plan: 5: System
+      Review calendar: 5: User
+      Adjust if needed: 3: User
+    section First Workout
+      View today's workout: 5: User
+      Start GPS tracking: 4: User
+      Complete run: 5: User
+      Log feedback: 4: User
+    section Social
+      Activity posted: 5: System
+      Receive kudos: 5: User
+      Follow friends: 4: User
+```
+
 ## Development
 
 ### Monorepo Structure
