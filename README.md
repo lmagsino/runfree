@@ -294,6 +294,59 @@ journey
       Follow friends: 4: User
 ```
 
+### Deployment Architecture
+
+```mermaid
+flowchart TB
+    subgraph Internet
+        USER[Users]
+    end
+
+    subgraph CDN
+        CF[Cloudflare]
+    end
+
+    subgraph Hosting
+        subgraph Vercel/Railway
+            WEB_HOST[React Web]
+        end
+        subgraph Railway/Render
+            API_HOST[Rails API]
+            AI_HOST[Python AI Service]
+            RT_HOST[Node.js Realtime]
+        end
+    end
+
+    subgraph Managed Services
+        NEON[(Neon PostgreSQL)]
+        UPSTASH[(Upstash Redis)]
+        S3_HOST[(AWS S3)]
+    end
+
+    subgraph External APIs
+        CLAUDE_API[Claude API]
+        GARMIN_API[Garmin API]
+        STRAVA_API[Strava API]
+    end
+
+    USER --> CF
+    CF --> WEB_HOST
+    CF --> API_HOST
+    CF --> RT_HOST
+
+    API_HOST --> NEON
+    API_HOST --> UPSTASH
+    API_HOST --> S3_HOST
+    API_HOST --> AI_HOST
+
+    AI_HOST --> CLAUDE_API
+
+    RT_HOST --> UPSTASH
+
+    API_HOST --> GARMIN_API
+    API_HOST --> STRAVA_API
+```
+
 ## Development
 
 ### Monorepo Structure
