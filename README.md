@@ -126,7 +126,35 @@ flowchart TB
 
 ### Data Flow
 
-*Coming soon*
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant W as Web/Mobile
+    participant API as Rails API
+    participant AI as AI Service
+    participant C as Claude API
+    participant DB as PostgreSQL
+    participant R as Redis
+
+    Note over U,R: Plan Generation Flow
+    U->>W: Complete onboarding
+    W->>API: POST /api/v1/training_plans
+    API->>DB: Save user profile
+    API->>AI: Generate plan request
+    AI->>C: Send prompt
+    C-->>AI: Return plan JSON
+    AI-->>API: Parsed plan
+    API->>DB: Save training plan + workouts
+    API-->>W: Plan created
+    W-->>U: Show calendar
+
+    Note over U,R: Workout Logging Flow
+    U->>W: Complete workout
+    W->>API: POST /api/v1/workouts/:id/complete
+    API->>DB: Update workout
+    API->>R: Publish activity event
+    API-->>W: Workout saved
+```
 
 ### Database Schema
 
