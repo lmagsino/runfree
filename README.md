@@ -158,7 +158,68 @@ sequenceDiagram
 
 ### Database Schema
 
-*Coming soon*
+```mermaid
+erDiagram
+    User ||--o| Profile : has
+    User ||--o| Goal : has
+    User ||--o| Availability : has
+    User ||--o{ TrainingPlan : creates
+    User ||--o{ Workout : logs
+    User ||--o{ Activity : posts
+    User }o--o{ User : follows
+
+    TrainingPlan ||--o{ Workout : contains
+
+    Workout ||--o| WorkoutRoute : has
+    Workout ||--o{ Kudos : receives
+    Workout ||--o{ Comment : receives
+
+    Activity ||--o{ Kudos : receives
+    Activity ||--o{ Comment : receives
+
+    Club ||--o{ ClubMembership : has
+    User ||--o{ ClubMembership : joins
+
+    User {
+        uuid id PK
+        string email
+        string encrypted_password
+        timestamp created_at
+    }
+
+    Profile {
+        uuid id PK
+        uuid user_id FK
+        string name
+        string experience_level
+        integer weekly_mileage
+        jsonb race_times
+        jsonb injury_history
+    }
+
+    TrainingPlan {
+        uuid id PK
+        uuid user_id FK
+        string goal_type
+        string goal_race
+        date start_date
+        date end_date
+        string status
+        jsonb ai_params
+    }
+
+    Workout {
+        uuid id PK
+        uuid user_id FK
+        uuid training_plan_id FK
+        string workout_type
+        date scheduled_date
+        string status
+        jsonb planned
+        jsonb completed
+        jsonb feedback
+    }
+```
 
 ## Development
 
