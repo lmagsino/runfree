@@ -1,0 +1,42 @@
+source "https://rubygems.org"
+
+ruby "3.1.2"
+
+# Core
+gem "rails", "~> 7.1.5", ">= 7.1.5.2"
+gem "pg", "~> 1.1"
+gem "puma", ">= 5.0"
+gem "bootsnap", require: false
+gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
+
+# API
+gem "rack-cors"
+gem "oj" # Fast JSON parsing
+
+# Redis & Background Jobs
+gem "redis", "~> 5.0"
+gem "sidekiq", "~> 7.0"
+
+# Authentication (for Phase 1.A.6-7)
+gem "devise", "~> 4.9"
+gem "devise-jwt", "~> 0.11"
+
+group :development, :test do
+  gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw]
+  gem "rspec-rails", "~> 6.1"
+  gem "factory_bot_rails", "~> 6.4"
+  gem "faker", "~> 3.2"
+  gem "dotenv-rails", "~> 2.8"
+end
+
+group :development do
+  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+  gem "annotate" # Add schema info to models
+  gem "rubocop-rails", require: false
+end
+
+group :test do
+  gem "shoulda-matchers", "~> 6.0"
+  gem "database_cleaner-active_record"
+  gem "simplecov", require: false
+end
