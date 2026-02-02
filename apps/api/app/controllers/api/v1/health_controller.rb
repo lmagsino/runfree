@@ -26,7 +26,7 @@ module Api
       end
 
       def redis_status
-        Redis.current.ping == "PONG" ? "connected" : "disconnected"
+        REDIS.ping == "PONG" ? "connected" : "disconnected"
       rescue StandardError
         "disconnected"
       end
